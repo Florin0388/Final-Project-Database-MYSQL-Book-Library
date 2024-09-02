@@ -138,7 +138,43 @@ SELECT carti.titlu, autori.nume_autor, genuri.gen_carte
 FROM carti 
 INNER JOIN autori ON carti.id_autor = autori.id 
 INNER JOIN genuri ON carti.id_gen = genuri.id;
+<li>Left Join:</li>
+SELECT cititori.nume_prenume, imprumuturi.data_imprumut 
+FROM cititori 
+LEFT JOIN imprumuturi ON cititori.id = imprumuturi.id;
+<li>Cross Join:</li>
+SELECT carti.titlu, cititori.nume_prenume 
+FROM carti 
+CROSS JOIN cititori;
+<li>Aggregate Functions and GROUP BY:</li>
+<li>Total number of books:</li>
+SELECT COUNT(*) AS Total_carti FROM carti;
+<li>Maximum book price:</li>
+SELECT MAX(pret) AS pret_maxim FROM carti;
+<li>Number of authors from each country:</li>
+SELECT tara, COUNT(*) AS numar_autori FROM autori GROUP BY tara;
+<li>Subquery:</li>
+<li>Finding the ID of the reader "Dobre Alina":</li>
+SELECT id FROM cititori WHERE nume_prenume = 'Dobre Alina';
+<li>Finding the titles of books borrowed by "Dobre Alina" using Subquery:</li>
+SELECT titlu FROM carti WHERE id IN (SELECT id_carte FROM imprumuturi WHERE id_cititor = (SELECT id FROM cititori WHERE nume_prenume = 'Dobre Alina'));
 
+<h2>Conclusions</h2>
+In this project, I went through a complete cycle of manipulating a relational database, covering both aspects of defining and creating tables, as well as data modification and manipulation operations. I learned how to use DDL (Data Definition Language) instructions to create and modify table structures, as well as DML (Data Manipulation Language) instructions to insert, update, and delete data.
+
+<li>What I learned and accomplished:</li>
+<li>Creating and Modifying Tables:</li>
+I created several tables, such as autori, genuri, carti, cititori, and imprumuturi, and defined the relationships between them using primary and foreign keys. I used ALTER statements to rename columns, add new columns, and modify existing column properties.
+<li>Inserting Data:</li>
+I used various methods to insert data into tables, including inserting multiple rows at the same time and explicitly specifying columns. This helped me understand the importance of correlating data between different tables through defined relationships.
+<li>Updating and Deleting Data:</li>
+I applied filters with WHERE to update and delete only those rows that met specific conditions. This taught me to be precise in data manipulation to avoid accidental changes.
+<li>Querying the Database:</li>
+I learned to use various types of SELECT queries, combining filters, aggregate functions, and table join operations (JOINs). I also used subqueries to extract more complex information, thus consolidating my ability to work with relational data efficiently.
+<li>Table Relationships:</li>
+I realized how important it is to correctly define relationships between tables to maintain data integrity and facilitate complex queries. I applied different types of JOINs to bring together information from different tables coherently.
+<h2>Conclusion</h2>
+This project provided me with a solid understanding of how relational databases work and taught me how to efficiently manage the structure and data of a database. I gained practical insight into creating and manipulating tables, inserting and managing data, as well as advanced query usage to extract desired information. These skills are essential for any project involving data management in a relational database.
 
 
 
