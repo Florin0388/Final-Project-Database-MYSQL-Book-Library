@@ -74,3 +74,71 @@ ALTER TABLE cititori ADD COLUMN gen ENUM('M', 'F');
 
 ALTER TABLE carti MODIFY COLUMN pret DECIMAL(10, 2);
 
+<b> DML (Data Manipulation Language)</b><br>
+To use the database, I populated the tables with various data necessary to perform queries and manipulate the data. In the testing process, this data is identified during the Test Design phase and created in the Test Implementation phase.
+
+Below are all the insert instructions created for this project:
+
+INSERT INTO genuri VALUES 
+(1, 'Fantasy'), 
+(2, 'SF'), 
+(3, 'Mistery'), 
+(4, 'SF/Drama'), 
+(5, 'Mystery/thriller')
+
+INSERT INTO autori (nume_autor, tara) VALUES 
+('J Rowling', 'United Kingdom'), 
+('Geeorge R.R. Martin', 'SUA'), 
+('J.R.R. Tolkien', 'United Kingdom'), 
+('George Orwell', 'United Kingdom'), 
+('Stieg Larsson', 'Suedia');
+
+INSERT INTO carti (titlu, id_autor, id_gen, an_publicare, pret) VALUES 
+('Harry Potter and the Philosophers Stone', 1, 1, 1997, 125.00), 
+('Game of Thrones', 2, 2, 1996, 90.00), 
+('The Hobbit', 3, 3, 1937, 100.00), 
+('1984', 4, 4, 1949, 45.00), 
+('The Girl with the Dragon Tattoo', 5, 5, 2005, 65.00);
+
+INSERT INTO cititori (nume_prenume, gen, email, data_inregistrare) VALUES 
+('Maria Mirabela', 'F', 'maria_mirabela@yahoo.com', '2001-03-04'), 
+('Mihalache Ion', 'M', 'mihalache.ion@yahoo.com', '2004-05-18'), 
+('Dobre Alina', 'F', 'dobre_alina@gmail.com', '2005-07-15'), 
+('Dumitru Mihai', 'M', 'mihai_dumitru@yahoo.com', '1998-01-30'), 
+('Teodorescu Laura', 'F', 'laura.teo@gmail.com', '2020-02-28');
+
+INSERT INTO imprumuturi (id_carte, id_cititor, data_imprumut, data_returnare) VALUES 
+(1, 4, '2023-06-01', '2023-06-15'), 
+(2, 1, '2020-02-14', '2020-02-28'), 
+(5, 2, '2006-05-12', '2020-05-26'), 
+(4, 3, '2015-12-10', '2015-12-24'), 
+(3, 5, '2018-06-06', '2018-06-20');
+
+After the inserts, to better prepare the data for testing, I updated some data as follows:
+
+UPDATE imprumuturi SET data_returnare = '2020-03-14' WHERE id = 2;
+
+<b>DQL (Data Query Language)</b> <br>
+After the testing process, I deleted the data that was no longer relevant to keep the database cleanL
+
+DELETE FROM imprumuturi WHERE data_imprumut < '2020-02-14';
+
+To simulate various real-life scenarios, I created the following queries:
+<ul>
+<li>Select with WHERE:</li>
+SELECT * FROM carti WHERE an_publicare > 1990;
+<li>Select with AND:</li>
+SELECT * FROM carti WHERE id_gen = 1 AND an_publicare > 1990;
+<li>Select with OR:</li>
+SELECT * FROM carti WHERE id_gen = 3 OR id_autor = 4;
+<li>Select with LIKE:</li>
+SELECT * FROM cititori WHERE nume_prenume LIKE 'D%';
+<li>Inner Join:</li>
+SELECT carti.titlu, autori.nume_autor, genuri.gen_carte 
+FROM carti 
+INNER JOIN autori ON carti.id_autor = autori.id 
+INNER JOIN genuri ON carti.id_gen = genuri.id;
+
+
+
+
