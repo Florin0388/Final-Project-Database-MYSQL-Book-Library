@@ -165,8 +165,17 @@ SELECT MAX(pret) AS pret_maxim FROM carti;
 SELECT tara, COUNT(*) AS numar_autori FROM autori GROUP BY tara;
 
 -- Subquery:
--- Finding the ID of the reader "Dobre Alina":
-SELECT id FROM cititori WHERE nume_prenume = 'Dobre Alina';
+-- interogarea principală pentru a găsi titlurile cărților împrumutate de acest cititor:
+select titlu
+from carti
+where id in (
+    select id_carte
+    from imprumuturi
+    where id_cititor = (
+        select id
+        from cititori
+        where nume_prenume = 'Dobre Alina'
+    )
 
 -- Finding the titles of books borrowed by "Dobre Alina" using Subquery:
 SELECT titlu FROM carti WHERE id IN (SELECT id_carte FROM imprumuturi WHERE id_cititor = (SELECT id FROM cititori WHERE nume_prenume = 'Dobre Alina'));
